@@ -2,6 +2,8 @@
 require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
 
 use Ramsey\Uuid\Uuid;
+use Intervention\Image\ImageManagerStatic as Image;
+
 class ServiceReparation
 {
     function generateUUID()
@@ -11,6 +13,23 @@ class ServiceReparation
         // Retornar el UUID como cadena de texto
         return $uuid->toString();
     }
+
+    function addWatermark($imagePath)
+    {
+        // Cargar la imagen
+        $image = Image::make($imagePath);
+
+        // Ruta de la marca de agua
+        $watermarkPath = 'ruta/a/tu/marca/de/agua.png';
+
+        // Añadir la marca de agua en la esquina inferior derecha
+        $image->insert($watermarkPath, 'bottom-right', 10, 10);
+
+        // Guardar la imagen con la marca de agua
+        $image->save('ruta/de/salida/con_marca_' . basename($imagePath));
+    }
+
+
     function connect()
     {
         // Parametros de la base de datos
@@ -62,11 +81,11 @@ class ServiceReparation
             // Obtener los datos de la reparación
             $row = $result->fetch_assoc();
             $reparation = new Reparation(
-                $row['id'],
-                $row['name'],
-                $row['register_date'],
-                $row['license'],
-                $row['picture']
+                $row['ID'],
+                $row['Name'],
+                $row['RegisterDate'],
+                $row['License'],
+                $row['Picture']
             );
 
             // Cerrar conexión y devolver la reparación
