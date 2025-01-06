@@ -18,9 +18,6 @@
             </select>
         </label><br><br>
         <label>
-            ID: <input name="id" type="number" min="1000" max="9999" placeholder="1234" required>
-        </label><br><br>
-        <label>
             Name: <input name="name" type="text" placeholder="Juan" required>
         </label><br><br>
         <label>
