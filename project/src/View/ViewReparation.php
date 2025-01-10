@@ -13,6 +13,9 @@ namespace WorkShop\Project\Src\View;
 <body>
 
     <?php
+    class ViewReparation{
+        
+    }
     session_start();
     if (isset($_POST["send"])) {
         if ($_POST["rol"] == "client") {
@@ -49,7 +52,7 @@ namespace WorkShop\Project\Src\View;
                         License: <input name="license" type="text" pattern="^\d{4}[A-Za-z]{3}$" placeholder="9999AAA" required>
                     </label><br><br>
                     <label>
-                        Photo(test): <input name="photo" type="text" placeholder="example" required>
+                        Picture(test): <input name="picture" type="text" placeholder="example" required>
                     </label><br><br>
                     <input type="submit" value="Enviar" name="createReparation">
                 </form>

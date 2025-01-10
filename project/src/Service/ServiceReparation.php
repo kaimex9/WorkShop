@@ -70,6 +70,7 @@ class ServiceReparation
         }
         // Cierro la conexion a la base de datos
         $connection->close();
+        return $reparation;
     }
     function getReparation($uuid)
     {
