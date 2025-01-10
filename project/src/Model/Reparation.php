@@ -1,14 +1,16 @@
 <?php
 class Reparation
 {
+    private $id;
     private $UUID;
     private $name;
     private $registerDate;
     private $license;
     private $picture;
 
-    public function __construct($UUID, $name, $registerDate, $license, $picture)
+    public function __construct($id, $UUID, $name, $registerDate, $license, $picture)
     {
+        $this->id = $id;
         $this->UUID = $UUID;
         $this->name = $name;
         $this->registerDate = $registerDate;
@@ -16,6 +18,9 @@ class Reparation
         $this->picture = $picture;
     }
 
+    public function getID(){
+        return $this->id;
+    }
     public function getUUID()
     {
         return $this->UUID;

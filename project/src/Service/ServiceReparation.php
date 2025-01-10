@@ -14,7 +14,7 @@ class ServiceReparation
         return $uuid->toString();
     }
 
-    function addWatermark($imagePath)
+    /*function addWatermark($imagePath)
     {
         // Cargar la imagen
         $image = Image::make($imagePath);
@@ -27,7 +27,7 @@ class ServiceReparation
 
         // Guardar la imagen con la marca de agua
         $image->save('ruta/de/salida/con_marca_' . basename($imagePath));
-    }
+    }*/
 
 
     function connect()
@@ -47,15 +47,21 @@ class ServiceReparation
         }
         return $conexion;
     }
-    function insertReparation($name, $registerDate, $license, $picture)
+    function insertReparation($id, $name, $registerDate, $license, $picture)
     {
         // Conexion a la base de datos
         $connection = $this->connect();
         // Genero la ID aleatoria y genero la reparacion
-        $id = $this->generateUUID();
-        $reparation = new Reparation($id, $name, $registerDate, $license, $picture);
+        $uuid = $this->generateUUID();
+        $reparation = new Reparation($id, $uuid, $name, $registerDate, $license, $picture);
         // Creacion de la query
-        $sql = "INSERT INTO reparation VALUES ('" . $reparation->getUUID() . ", " . $reparation->getName() . ", " . $reparation->getRegisterDate() . ", " . $reparation->getLicense() . ", " . $reparation->getPicture() . "')";
+        $sql = "INSERT INTO reparation VALUES ('
+        " . $reparation->getID() . ",
+        " . $reparation->getUUID() . ", 
+        " . $reparation->getName() . ",
+        " . $reparation->getRegisterDate() . ",
+        " . $reparation->getLicense() . ",
+        " . $reparation->getPicture() . "')";
         // Control de posible error
         if ($connection->query($sql) === TRUE) {
             echo "Registro insertado correctamente.";
@@ -71,7 +77,7 @@ class ServiceReparation
         $connection = $this->connect();
 
         // Creación de la consulta
-        $sql = "SELECT * FROM reparation WHERE ID = '$uuid'";
+        $sql = "SELECT * FROM reparation WHERE UUID = '$uuid'";
 
         // Ejecución de la consulta
         $result = $connection->query($sql);
@@ -82,6 +88,7 @@ class ServiceReparation
             $row = $result->fetch_assoc();
             $reparation = new Reparation(
                 $row['ID'],
+                $row['UUID'],
                 $row['Name'],
                 $row['RegisterDate'],
                 $row['License'],

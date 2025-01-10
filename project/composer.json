@@ -3,5 +3,10 @@
         "ramsey/uuid": "^4.7",
         "intervention/image": "^3.10",
         "monolog/monolog": "^3.8"
+    },
+    "autoload": {
+        "psr-4":  {
+            "WORKSHOP\\": "src/"
+        }
     }
 }
