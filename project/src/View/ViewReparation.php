@@ -1,5 +1,7 @@
 <?php
 namespace WorkShop\Project\Src\View;
+use WorkShop\Project\Src\Model\Reparation;
+require '..\..\vendor\autoload.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +15,20 @@ namespace WorkShop\Project\Src\View;
 <body>
 
     <?php
-    class ViewReparation{
-        
+    class ViewReparation
+    {
+        public Reparation $reparation;
+        public function render($reparation)
+        {
+            echo '<ul>
+                <li>ID: ' . $reparation->getID() . '</li>
+                <li>ID: ' . $reparation->getUUID() . '</li>
+                <li>ID: ' . $reparation->getName() . '</li>
+                <li>ID: ' . $reparation->getRegisterDate() . '</li>
+                <li>ID: ' . $reparation->getLicense() . '</li>
+                <li>ID: ' . $reparation->getPicture() . '</li>
+            </ul>';
+        }
     }
     session_start();
     if (isset($_POST["send"])) {
@@ -24,7 +38,7 @@ namespace WorkShop\Project\Src\View;
             <form action="..Controller/ControllerReparation.php" method="POST">
                 <h2>Search Reparation</h2>
                 <label>
-                    ReparationID: <input type="text" name="ID">
+                    ReparationID: <input type="text" name="UUID">
                 </label><br><br>
                 <input type="submit" value="Enviar" name="searchReparation">
             </form>
@@ -33,7 +47,7 @@ namespace WorkShop\Project\Src\View;
                 <form action="..Controller/ControllerReparation.php" method="POST">
                     <h2>Search Reparation</h2>
                     <label>
-                        ReparationID: <input type="text" name="ID">
+                        ReparationID: <input type="text" name="UUID">
                     </label><br><br>
                     <input type="submit" value="Enviar" name="searchReparation">
                 </form>

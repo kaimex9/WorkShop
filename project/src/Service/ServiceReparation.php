@@ -1,8 +1,15 @@
 <?php
+
+namespace WorkShop\Project\Src\Service;
+
 require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
+require '..\..\vendor\autoload.php';
 
 use Ramsey\Uuid\Uuid;
+use WorkShop\Project\src\Model\Reparation;
 use Intervention\Image\ImageManagerStatic as Image;
+use mysqli;
+use mysqli_sql_exception;
 
 class ServiceReparation
 {
@@ -29,24 +36,19 @@ class ServiceReparation
         $image->save('ruta/de/salida/con_marca_' . basename($imagePath));
     }*/
 
-
+    public $mysqli;
     function connect()
     {
-        // Parametros de la base de datos
-        $host = 'localhost';
-        $user = 'root';
-        $password = '';
-        $bbdd = 'workbench';
-
+        $db = parse_ini_file("../conf/db_conf.ini");
         // Crear la conexión
-        $conexion = new mysqli($host, $user, $password, $bbdd);
-
-        // Verificar si hay errores en la conexión
-        if ($conexion->connect_error) {
-            die("Error de conexión: " . $conexion->connect_error);
+        try {
+            $connection = new mysqli($db["host"], $db["user"], $db["pwd"], $db["db_name"]);
+        } catch (mysqli_sql_exception $x) {
+            echo "connection ERROR";
         }
-        return $conexion;
+        return $connection;
     }
+
     function insertReparation($id, $name, $registerDate, $license, $picture)
     {
         // Conexion a la base de datos
@@ -72,17 +74,15 @@ class ServiceReparation
         $connection->close();
         return $reparation;
     }
+    
     function getReparation($uuid)
     {
         // Conexión a la base de datos
         $connection = $this->connect();
-
         // Creación de la consulta
         $sql = "SELECT * FROM reparation WHERE UUID = '$uuid'";
-
         // Ejecución de la consulta
         $result = $connection->query($sql);
-
         // Verificar si hay resultados
         if ($result->num_rows > 0) {
             // Obtener los datos de la reparación

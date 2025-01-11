@@ -1,4 +1,7 @@
 <?php
+
+namespace WorkShop\Project\Src\Model;
+require '..\..\vendor\autoload.php';
 class Reparation
 {
     private $id;

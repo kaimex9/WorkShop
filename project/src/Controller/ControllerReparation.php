@@ -1,9 +1,15 @@
 <?php
 
+namespace WorkShop\Project\Src\Controller;
+
+require '..\..\vendor\autoload.php';
+use WorkShop\Project\src\Service\ServiceReparation;
 use WorkShop\Project\Src\View\ViewReparation;
+
 
 class ControllerReparation
 {
+    
     function insertReparation()
     {
         // recojo la informacion del formulario
@@ -22,6 +28,12 @@ class ControllerReparation
 
     function getReparation()
     {
-
+        if (isset($_POST["searchReparation"])) {
+            $uuid = $_POST['UUID'];
+            $service = new ServiceReparation();
+            $reparation = $service->getReparation($uuid);
+            $view = new ViewReparation();
+            $view->render($reparation);
+        }
     }
 }
