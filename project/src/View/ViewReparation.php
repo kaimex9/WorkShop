@@ -1,6 +1,7 @@
 <?php
 namespace WorkShop\Project\Src\View;
 use WorkShop\Project\Src\Model\Reparation;
+use WorkShop\Project\Src\Controller\ControllerReparation;
 require '..\..\vendor\autoload.php';
 ?>
 <!DOCTYPE html>
@@ -35,7 +36,7 @@ require '..\..\vendor\autoload.php';
         if ($_POST["rol"] == "client") {
             $_SESSION['rol'] = $_POST["rol"];
             ?>
-            <form action="..Controller/ControllerReparation.php" method="POST">
+            <form action="../Controller/ControllerReparation.php" method="POST">
                 <h2>Search Reparation</h2>
                 <label>
                     ReparationID: <input type="text" name="UUID">
@@ -44,7 +45,7 @@ require '..\..\vendor\autoload.php';
             </form>
             <?php
         } else if ($_POST["rol"] == "employee") { ?>
-                <form action="..Controller/ControllerReparation.php" method="POST">
+                <form action="../Controller/ControllerReparation.php" method="POST">
                     <h2>Search Reparation</h2>
                     <label>
                         ReparationID: <input type="text" name="UUID">
