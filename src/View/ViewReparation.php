@@ -43,7 +43,7 @@ if (isset($_POST['rol'])) {
         <form action="../Controller/ControllerReparation.php" method="POST">
             <h2>Search Reparation</h2>
             <label>
-                ReparationID: <input type="text" name="UUID">
+                ReparationUUID: <input type="text" name="UUID">
             </label><br><br>
             <input type="submit" value="Enviar" name="searchReparation">
         </form>
