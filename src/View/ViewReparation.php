@@ -29,8 +29,9 @@ if (isset($_POST['rol'])) {
         {
             
             echo '<ul>
-                <li>ID: ' . $reparation->getUUID() . '</li>
-                <li>UUID: ' . $reparation->getID() . '</li>
+                <h2>Reparation Info</h2>
+                <li>ID: ' . $reparation->getID() . '</li>
+                <li>UUID: ' . $reparation->getUUID() . '</li>
                 <li>Name: ' . $reparation->getName() . '</li>
                 <li>RegisterDate: ' . $reparation->getRegisterDate() . '</li>
                 <li>License: ' . $reparation->getLicense() . '</li>

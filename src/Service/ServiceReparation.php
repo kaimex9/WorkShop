@@ -64,13 +64,7 @@ class ServiceReparation
         $uuid = Uuid::uuid4()->toString();
         $reparation = new Reparation($id, $uuid, $name, $registerDate, $license, $picture);
         // Creacion de la query
-        $sql = "INSERT INTO reparation VALUES ('
-        " . $reparation->getID() . ",
-        " . $reparation->getUUID() . ", 
-        " . $reparation->getName() . ",
-        " . $reparation->getRegisterDate() . ",
-        " . $reparation->getLicense() . ",
-        " . $reparation->getPicture() . "')";
+        $sql = "INSERT INTO reparation VALUES ('$id', '$uuid' , '$name' , '$registerDate' , '$license' , '$picture')";
         try {
             $this->mysqli->query($sql);
             $this->log->info("Record inserted successfully");
