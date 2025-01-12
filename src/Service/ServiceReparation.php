@@ -1,15 +1,17 @@
 <?php
 
-namespace WorkShop\Project\Src\Service;
+namespace project\Service;
 
-require 'vendor/autoload.php'; // Asegúrate de incluir el autoload de Composer
-require '..\..\vendor\autoload.php';
+require '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
-use WorkShop\Project\src\Model\Reparation;
+use Project\Model\Reparation;
 use Intervention\Image\ImageManagerStatic as Image;
 use mysqli;
 use mysqli_sql_exception;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class ServiceReparation
 {
@@ -37,16 +39,29 @@ class ServiceReparation
     }*/
 
     public $mysqli;
+    public $log;
+    public function __construct()
+    {
+        $this->initializeLogger();
+    }
+
+    private function initializeLogger()
+    {
+        $this->log = new Logger('workshop_log');
+        $this->log->pushHandler(new StreamHandler('../logs/app_workshop.log', Level::Info));
+    }
     function connect()
     {
-        $db = parse_ini_file("../conf/db_conf.ini");
+        $db = parse_ini_file("../../conf/db_conf.ini");
         // Crear la conexión
         try {
-            $connection = new mysqli($db["host"], $db["user"], $db["pwd"], $db["db_name"]);
+            //$connection = new mysqli($db["host"], $db["user"], $db["pwd"], $db["db_name"]);
+            $this->mysqli = new mysqli($db["host"], $db["user"], $db["pwd"], $db["db_name"]);
+            $this->log->info("Connection to DDBB success");
         } catch (mysqli_sql_exception $x) {
-            echo "connection ERROR";
+            $this->log->error("Connection to DDBB failed");
         }
-        return $connection;
+        //return $connection;
     }
 
     function insertReparation($id, $name, $registerDate, $license, $picture)
@@ -74,36 +89,31 @@ class ServiceReparation
         $connection->close();
         return $reparation;
     }
-    
-    function getReparation($uuid)
+
+    function getReparation($uuid, $rol)
     {
-        // Conexión a la base de datos
-        $connection = $this->connect();
-        // Creación de la consulta
-        $sql = "SELECT * FROM reparation WHERE UUID = '$uuid'";
-        // Ejecución de la consulta
-        $result = $connection->query($sql);
-        // Verificar si hay resultados
-        if ($result->num_rows > 0) {
+        $this->connect();
+        try {
+            $stmt = $this->mysqli->prepare("SELECT * FROM reparation WHERE UUID = '$uuid'");
+            $stmt->execute();
+
+            $result = $stmt->get_result()->fetch_assoc();
+            $stmt->close();
+            // Verificar si hay resultados
             // Obtener los datos de la reparación
-            $row = $result->fetch_assoc();
             $reparation = new Reparation(
-                $row['ID'],
-                $row['UUID'],
-                $row['Name'],
-                $row['RegisterDate'],
-                $row['License'],
-                $row['Picture']
+                $result['ID'],
+                $result['UUID'],
+                $result['Name'],
+                $result['RegisterDate'],
+                $result['License'],
+                $result['Picture']
             );
-
-            // Cerrar conexión y devolver la reparación
-            $connection->close();
             return $reparation;
-        } else {
-            // Si no se encuentra, cerrar conexión y devolver null
-            $connection->close();
-            return null;
+        } catch (mysqli_sql_exception $x) {
+            $this->log->warning("getReparation Query failed");
         }
-    }
 
+
+    }
 }

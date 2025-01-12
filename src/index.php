@@ -9,7 +9,7 @@
 
 <body>
     <h1>My Workshop</h1>
-    <form method='POST' action='ViewReparation.php'>
+    <form method='POST' action='../src/View/ViewReparation.php'>
         <label>
             Type:
             <select name="rol">
