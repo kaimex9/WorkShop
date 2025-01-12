@@ -15,14 +15,6 @@ use Monolog\Handler\StreamHandler;
 
 class ServiceReparation
 {
-    function generateUUID()
-    {
-        // Crear un UUID versión 4 (aleatorio)
-        $uuid = Uuid::uuid4();
-        // Retornar el UUID como cadena de texto
-        return $uuid->toString();
-    }
-
     /*function addWatermark($imagePath)
     {
         // Cargar la imagen
@@ -67,9 +59,9 @@ class ServiceReparation
     function insertReparation($id, $name, $registerDate, $license, $picture)
     {
         // Conexion a la base de datos
-        $connection = $this->connect();
+        $this->connect();
         // Genero la ID aleatoria y genero la reparacion
-        $uuid = $this->generateUUID();
+        $uuid = Uuid::uuid4()->toString();
         $reparation = new Reparation($id, $uuid, $name, $registerDate, $license, $picture);
         // Creacion de la query
         $sql = "INSERT INTO reparation VALUES ('
@@ -79,15 +71,13 @@ class ServiceReparation
         " . $reparation->getRegisterDate() . ",
         " . $reparation->getLicense() . ",
         " . $reparation->getPicture() . "')";
-        // Control de posible error
-        if ($connection->query($sql) === TRUE) {
-            echo "Registro insertado correctamente.";
-        } else {
-            echo "Error al insertar el registro: " . $connection->error;
+        try {
+            $this->mysqli->query($sql);
+            $this->log->info("Record inserted successfully");
+            return $reparation;
+        } catch (mysqli_sql_exception $x) {
+            $this->log->error("Error inserting a record");
         }
-        // Cierro la conexion a la base de datos
-        $connection->close();
-        return $reparation;
     }
 
     function getReparation($uuid, $rol)
