@@ -28,7 +28,7 @@ function insertReparation()
         $service = new ServiceReparation();
         $reparation = $service->insertReparation($id, $name, $date, $license, $picture);
         $view = new ViewReparation();
-        //$view->render($reparation);
+        $view->render($reparation);
     }
 }
 
