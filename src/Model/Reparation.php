@@ -1,6 +1,6 @@
 <?php
 
-namespace project\Model;
+namespace workshop\Model;
 require '..\..\vendor\autoload.php';
 class Reparation
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace project\Controller;
+namespace workshop\Controller;
 require '../../vendor/autoload.php';
-use project\Service\ServiceReparation;
-use project\View\ViewReparation;
+use workshop\Service\ServiceReparation;
+use workshop\View\ViewReparation;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();

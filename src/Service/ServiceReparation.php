@@ -1,11 +1,11 @@
 <?php
 
-namespace project\Service;
+namespace workshop\Service;
 
 require '../../vendor/autoload.php';
 
 use Ramsey\Uuid\Uuid;
-use Project\Model\Reparation;
+use workshop\Model\Reparation;
 use Intervention\Image\ImageManagerStatic as Image;
 use mysqli;
 use mysqli_sql_exception;

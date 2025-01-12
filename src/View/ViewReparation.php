@@ -1,7 +1,7 @@
 <?php
-namespace project\Src\View;
-use project\Src\Model\Reparation;
-use project\Src\Controller\ControllerReparation;
+namespace workshop\View;
+use workshop\Model\Reparation;
+use workshop\Controller\ControllerReparation;
 require '..\..\vendor\autoload.php';
 
 if (isset($_POST['rol'])) {
