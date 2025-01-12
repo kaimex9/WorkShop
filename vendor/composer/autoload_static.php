@@ -11,9 +11,9 @@ class ComposerStaticInitea4ccf45160d49b2e24063883ef0d456
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'w' => 
         array (
-            'WORKSHOP\\' => 9,
+            'workshop\\' => 9,
         ),
         'R' => 
         array (
@@ -40,7 +40,7 @@ class ComposerStaticInitea4ccf45160d49b2e24063883ef0d456
     );
 
     public static $prefixDirsPsr4 = array (
-        'WORKSHOP\\' => 
+        'workshop\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

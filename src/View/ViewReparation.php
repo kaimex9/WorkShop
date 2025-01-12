@@ -24,15 +24,17 @@ if (isset($_POST['rol'])) {
     <?php
     class ViewReparation
     {
+        
         public function render($reparation)
         {
+            
             echo '<ul>
-                <li>ID: ' . $reparation->getID() . '</li>
                 <li>ID: ' . $reparation->getUUID() . '</li>
-                <li>ID: ' . $reparation->getName() . '</li>
-                <li>ID: ' . $reparation->getRegisterDate() . '</li>
-                <li>ID: ' . $reparation->getLicense() . '</li>
-                <li>ID: ' . $reparation->getPicture() . '</li>
+                <li>UUID: ' . $reparation->getID() . '</li>
+                <li>Name: ' . $reparation->getName() . '</li>
+                <li>RegisterDate: ' . $reparation->getRegisterDate() . '</li>
+                <li>License: ' . $reparation->getLicense() . '</li>
+                <li>Picture: ' . $reparation->getPicture() . '</li>
             </ul>';
         }
     }
